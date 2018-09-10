@@ -36,22 +36,21 @@ for tr in trs:
         continue
     scores.append((tds[0].text.strip(), tds[1].text.strip(), tds[2].text.strip()))
 
-scores_clean = {}
-sentinel = -1
+scores_clean = []
+rank = 0
 for score in scores:
-    t = []
-    if score[0] == '':
-        t.append(sentinel)
-        sentinel = sentinel - 1
-    else:
-        t.append(int(score[0]))
-    t.append(score[1])
-    t.append(int(score[2]))
-    scores_clean[t[0]] = [score[1], int(score[2])]
+    if score[0]:
+        # if there's a value in the first column, that's the rank.
+        # Otherwise, reuse the last one we've seen
+        rank = int(score[0])
+
+    scores_clean.append([rank, score[1], int(score[2])])
 
 out = []
-for (k) in sorted(scores_clean.keys())[::-1]:
-    out.append(scores_clean[k][0] + " : " + str(scores_clean[k][1]))
+# this will use alphabetical order as the tiebreak, which is good enough
+for rank, user_name, score in sorted(scores_clean):
+    out.append('({rank}) {user_name}: {score}'.format(
+        rank=rank, user_name=user_name, score=score))
 
 payload_json = {"text": "\n*Current Pick'em Standings*\n" + "\n".join(out)}
 
