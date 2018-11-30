@@ -1,0 +1,12 @@
+{
+  # Perform a dryrun (print to console)
+  "dryrun": true,
+  # Private Group ID from adventofcode.com
+  "advent_group_id": "XXXXXX-XXXXXXXX",
+  # Session cookie (Use inspect to pull from API URL)
+  # e.g. https://adventofcode.com/2018/leaderboard/private/view/XXXXXX.json
+  "advent_session": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+  # From Slack's Incoming Webhook integration
+  #  Look for configuration field "Webhook URL"
+  "slack_url": "XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX"
+}
