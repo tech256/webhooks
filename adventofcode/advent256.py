@@ -34,7 +34,9 @@ r = requests.get(url, cookies=cookies)
 content = json.loads(r.content)
 
 members = content['members'].values()
-members = sorted(members, key=lambda entry: entry['local_score'])
+members = sorted(members, key=lambda entry: (
+    entry['local_score'], entry['stars'], entry['name'],
+))
 
 table = []
 table.append('{:<30}{:<15}{:<15}'.format('Member', 'Stars', 'Score'))
