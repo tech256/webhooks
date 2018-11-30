@@ -34,10 +34,17 @@ r = requests.get(url, cookies=cookies)
 content = json.loads(r.content)
 
 members = content['members'].values()
-members = sorted(members, key=lambda entry: (
-    entry['local_score'], entry['stars'], entry['name'],
-))
-
+try:
+    # .casefold() is the preferred method for case-insensitive comparisons,
+    # per unicode
+    members = sorted(members, key=lambda entry: (
+        entry['local_score'], entry['stars'], entry['name'].casefold(),
+    ))
+except AttributeError:
+    # on Py <3.3. Lame.
+    members = sorted(members, key=lambda entry: (
+        entry['local_score'], entry['stars'], entry['name'].lower(),
+    ))
 table = []
 table.append('{:<30}{:<15}{:<15}'.format('Member', 'Stars', 'Score'))
 for member in members:
