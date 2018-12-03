@@ -38,12 +38,20 @@ try:
     # .casefold() is the preferred method for case-insensitive comparisons,
     # per unicode
     members = sorted(members, key=lambda entry: (
-        entry['local_score'], entry['stars'], entry['name'].casefold(),
+        # sort order:
+        # local score (descending)
+        # stars (descending)
+        # display name (ascending)
+        -entry['local_score'], -entry['stars'], entry['name'].casefold(),
     ))
 except AttributeError:
     # on Py <3.3. Lame.
     members = sorted(members, key=lambda entry: (
-        entry['local_score'], entry['stars'], entry['name'].lower(),
+        # sort order:
+        # local score (descending)
+        # stars (descending)
+        # display name (ascending)
+        -entry['local_score'], -entry['stars'], entry['name'].lower(),
     ))
 table = []
 table.append('{:<30}{:<15}{:<15}'.format('Member', 'Stars', 'Score'))
